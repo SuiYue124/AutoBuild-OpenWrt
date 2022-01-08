@@ -17,7 +17,7 @@ on:
 
 #定时触发开始编译(把下面两个#去掉开启,时间设置请看定时编译说明)
   schedule:
-    - cron: 0 18 30 * *
+    - cron: 0 18 * * sun
 
 env:
   Github: https://github.com/${{github.repository}}
@@ -73,7 +73,7 @@ jobs:
       uses: GitRML/delete-workflow-runs@main
       continue-on-error: true
       with:
-        retain_days: 100
+        retain_days: 10
         keep_minimum_runs: 1
 
     - name: 清理固件
@@ -81,7 +81,7 @@ jobs:
       continue-on-error: true
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        keep_latest: 3
+        keep_latest: 6
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
