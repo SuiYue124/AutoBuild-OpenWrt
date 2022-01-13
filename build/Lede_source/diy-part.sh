@@ -70,7 +70,7 @@ sed -i 's/"Frp 内网穿透"/"Frp客户端"/g' `grep "Frp 内网穿透" -rl ./`
 sed -i 's/UU游戏加速器/UU加速器/g' package/lean/luci-app-uugamebooster/po/zh-cn/uuplugin.po
 sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/GWen124/luci-app-ssr-plus/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
 sed -i 's/msgstr "UPnP"/msgstr "UPnP服务"/g' feeds/luci/applications/luci-app-upnp/po/zh-cn/upnp.po
-sed -i 's/"Adblock Plus+"/"Adb Plus+"/g' `grep "Adblock Plus+" -rl ./`
+#sed -i 's/"Adblock Plus+"/"Adb Plus+"/g' `grep "Adblock Plus+" -rl ./`
 sed -i 's/"Rclone"/"Rclone挂载"/g' package/lean/luci-app-rclone/luasrc/controller/rclone.lua
 #sed -i 's/"WebGuide"/"网页导航"/g' package/GWen124/luci-app-webguide/luasrc/controller/webguide.lua
 sed -i 's/"Go 阿里云盘 WebDAV"/"阿里云盘"/g' `grep "Go 阿里云盘 WebDAV" -rl ./`
