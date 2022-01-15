@@ -79,7 +79,7 @@ sed -i 's/CPU占用率限制/CPU调节/g' package/GWen124/luci-app-cpulimit/po/z
 #sed -i 's/"TelegramBot"/"电报机器人"/g'  package/GWen124/luci-app-telegrambot/luasrc/controller/telegrambot.lua
 sed -i 's/"Nezha Agent"/"哪吒面板"/g'  package/GWen124/luci-app-nezha/luasrc/controller/nezha-agent.lua
 #sed -i 's/"Webd 网盘"/"WebDisk"/g'  package/GWen124/luci-app-webd/po/zh-cn/webd.po
-sed -i 's/"Hello World"/"H.World"/g'  package/GWen124/luci-app-vssr/po/zh-cn/vssr.po
+sed -i 's/msgstr "Hello World"/msgstr "H.World"/g'  package/GWen124/luci-app-vssr/po/zh-cn/vssr.po
 
 
 #network
