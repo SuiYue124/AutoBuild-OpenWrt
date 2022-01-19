@@ -75,7 +75,7 @@ sed -i 's/Hello World/VisualSSR/g'  package/GWen124/luci-app-vssr/luasrc/control
 sed -i 's/"Nezha Agent"/"哪吒面板"/g'  package/GWen124/luci-app-nezha/luasrc/controller/nezha-agent.lua
 #sed -i 's/"WebGuide"/"网页导航"/g'  package/GWen124/luci-app-webguide/luasrc/controller/webguide.lua
 #sed -i 's/"Webd 网盘"/"WebDisk"/g'  package/GWen124/luci-app-webd/po/zh-cn/webd.po
-#sed -i 's/"Go 阿里云盘 WebDAV"/"阿里云盘"/g' `grep "Go 阿里云盘 WebDAV" -rl ./`
+sed -i 's/"Go 阿里云盘 WebDAV"/"阿里云盘"/g' `grep "Go 阿里云盘 WebDAV" -rl ./`
 #sed -i 's/"阿里云盘 WebDAV"/"阿里云盘"/g' `grep "阿里云盘 WebDAV" -rl ./`
 #sed -i 's/京东签到服务/京东签到/g' package/lean/luci-app-jd-dailybonus/luasrc/controller/jd-dailybonus.lua
 #sed -i 's/"UU游戏加速器"/"UU加速器"/g' `grep "UU游戏加速器" -rl ./`

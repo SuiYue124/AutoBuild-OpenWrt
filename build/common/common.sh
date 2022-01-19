@@ -27,6 +27,7 @@ Compte=$(date +%Y年%m月%d号%H时%M分)
 ################################################################################################################
 Diy_lede() {
 #find . -name 'luci-app-netdata' -o -name 'netdata' -o -name 'luci-theme-argon' | xargs -i rm -rf {}
+rm -rf package/lean/luci-theme-argon
 rm -rf package/lean/luci-app-pushbot
 git clone https://github.com/GWen124/OpenWrt-Software package/GWen124
 
