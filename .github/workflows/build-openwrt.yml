@@ -1,5 +1,3 @@
-#
-#
 # 感谢p3terx大神的一键编译脚本
 # 
 # Copyright (C) 2019 P3TERX <https://p3terx.com>
@@ -17,7 +15,7 @@ on:
 
 #定时触发开始编译(把下面两个#去掉开启,时间设置请看定时编译说明)
   schedule:
-    - cron: 0 18 * * sun
+    - cron: 0 14 * * sun
 
 env:
   Github: https://github.com/${{github.repository}}
@@ -73,7 +71,7 @@ jobs:
       uses: GitRML/delete-workflow-runs@main
       continue-on-error: true
       with:
-        retain_days: 10
+        retain_days: 100
         keep_minimum_runs: 1
 
     - name: 清理固件
@@ -81,7 +79,7 @@ jobs:
       continue-on-error: true
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        keep_latest: 6
+        keep_latest: 3
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
@@ -185,6 +183,7 @@ jobs:
         fi
         
     - name: 编译信息
+      continue-on-error: true
       run: |
         cd openwrt
         source "${PATH1}/common.sh" && Diy_chuli > /dev/null 2>&1
@@ -285,13 +284,13 @@ jobs:
         bodyFile: "update_log.txt"
         artifacts: "${{ env.FIRMWARE }}/*"
         
-    - name: 发送[在线更新固件]至云端1
+    - name: 在线更新Step 1
       if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
       run: |
        cd openwrt
        source "${PATH1}/upgrade.sh" && Diy_Part3
         
-    - name: 发送[在线更新固件]至云端2
+    - name: 在线更新Step 2
       if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
       uses: svenstaro/upload-release-action@v2
       with:
@@ -301,14 +300,14 @@ jobs:
         overwrite: true
         file_glob: true
         
-    - name: 发送[在线更新固件]至云端3
+    - name: 在线更新Step 3
       if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
       run: |
         mkdir -p Github_Tags
         cd Github_Tags
         wget -q --no-cookie --no-check-certificate https://api.github.com/repos/${{github.repository}}/releases/tags/AutoUpdate -O Github_Tags
         
-    - name: 发送[在线更新固件]至云端4
+    - name: 在线更新Step 4
       if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
       uses: svenstaro/upload-release-action@v2
       with:

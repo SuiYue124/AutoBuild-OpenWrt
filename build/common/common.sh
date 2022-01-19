@@ -28,7 +28,6 @@ Compte=$(date +%Y年%m月%d号%H时%M分)
 Diy_lede() {
 #find . -name 'luci-app-netdata' -o -name 'netdata' -o -name 'luci-theme-argon' | xargs -i rm -rf {}
 rm -rf package/lean/luci-app-pushbot
-rm -rf package/lean/luci-theme-argon 
 git clone https://github.com/GWen124/OpenWrt-Software package/GWen124
 
 if [[ "${Modelfile}" == "Lede_source" ]]; then
@@ -255,26 +254,6 @@ CPUNAME="$(awk 'NR==1' CPU)" && CPUCORES="$(awk 'NR==2' CPU)"
 rm -rf CPU
 find . -name 'LICENSE' -o -name 'README' -o -name 'README.md' | xargs -i rm -rf {}
 find . -name 'CONTRIBUTED.md' -o -name 'README_EN.md' -o -name 'DEVICE_NAME' | xargs -i rm -rf {}
-if [[ `grep -c "KERNEL_PATCHVER:=" ${Home}/target/linux/${TARGET_BOARD}/Makefile` -eq '1' ]]; then
-	PATCHVER=$(grep KERNEL_PATCHVER:= ${Home}/target/linux/${TARGET_BOARD}/Makefile | cut -c18-100)
-elif [[ `grep -c "KERNEL_PATCHVER=" ${Home}/target/linux/${TARGET_BOARD}/Makefile` -eq '1' ]]; then
-	PATCHVER=$(grep KERNEL_PATCHVER= ${Home}/target/linux/${TARGET_BOARD}/Makefile | cut -c17-100)
-else
-	PATCHVER=unknown
-fi
-if [[ "${PATCHVER}" != "unknown" ]]; then
-	PATCHVER=$(egrep -o "${PATCHVER}.[0-9]+" ${Home}/include/kernel-version.mk)
-fi
-[[ -e $GITHUB_WORKSPACE/amlogic_openwrt ]] && source $GITHUB_WORKSPACE/amlogic_openwrt
-[[ "${amlogic_kernel}" == "5.12.12_5.4.127" ]] && {
-	curl -fsSL https://raw.githubusercontent.com/ophub/amlogic-s9xxx-openwrt/main/.github/workflows/build-openwrt-lede.yml > open.yml
-	Make_ker="$(cat open.yml | grep ./make | cut -d "k" -f3 | sed s/[[:space:]]//g)"
-	TARGET_kernel="${Make_ker}"
-	TARGET_model="${amlogic_model}"
-} || {
-	TARGET_kernel="${amlogic_kernel}"
-	TARGET_model="${amlogic_model}"
-}
 }
 
 
