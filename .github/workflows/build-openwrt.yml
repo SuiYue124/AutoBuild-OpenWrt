@@ -59,6 +59,7 @@ jobs:
         echo "执行"
 
     - name: 读取设置
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       run: |
         source "${GITHUB_WORKSPACE}/build/${{matrix.target}}/settings.ini"
         echo "REPO_URL=${REPO_URL}" >> $GITHUB_ENV
@@ -79,6 +80,7 @@ jobs:
         echo "Modelfile=${{matrix.target}}" >> $GITHUB_ENV
         
     - name: 清理脚本
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       uses: GitRML/delete-workflow-runs@main
       continue-on-error: true
       with:
@@ -86,6 +88,7 @@ jobs:
         keep_minimum_runs: 1
 
     - name: 清理固件
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       uses: dev-drprasad/delete-older-releases@master
       continue-on-error: true
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
@@ -96,6 +99,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
 
     - name: 整理脚本
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       run: |
         chmod -R +x "${GITHUB_WORKSPACE}/build/common"
         echo "NETIP=package/base-files/files/etc/networkip" >> $GITHUB_ENV
@@ -115,6 +119,7 @@ jobs:
         fi
 
     - name: 部署环境
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -128,6 +133,7 @@ jobs:
         sudo chown $USER:$GROUPS /workdir
 
     - name: 下载源码
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       working-directory: /workdir
       run: |
         git clone -b "$REPO_BRANCH" --single-branch "$REPO_URL" openwrt
@@ -138,6 +144,7 @@ jobs:
         echo "PATH1=${GITHUB_WORKSPACE}/openwrt/build/${{matrix.target}}" >> $GITHUB_ENV
  
     - name: 加载设置
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       run: |
         echo "Compile_Date=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
         cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
@@ -163,6 +170,7 @@ jobs:
         fi
     
     - name: 缓存加速
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       if: env.USE_CACHEWRTBUILD == 'true'
       uses: klever1988/cachewrtbuild@test
       with:
@@ -170,6 +178,7 @@ jobs:
         prefix: ${{ github.workspace }}/openwrt
 
     - name: SSH连接
+      if: steps.lastday.outputs.islastday == '1' && !cancelled() 
       uses: danshui-git/debugger-action@master
       if: env.SSH_ACTIONS == 'true' || (github.event.inputs.ssh == 'ssh' && github.event.inputs.ssh  != 'false')
       env:
@@ -177,6 +186,7 @@ jobs:
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     - name: 生成配置
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       run: |
         cd openwrt
         source "${PATH1}/common.sh" && Diy_chajian > /dev/null 2>&1
@@ -194,6 +204,7 @@ jobs:
         fi
         
     - name: 编译信息
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       continue-on-error: true
       run: |
         cd openwrt
@@ -208,6 +219,7 @@ jobs:
         fi
 
     - name: 下载dl库
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       id: package
       run: |
         cd openwrt
@@ -217,6 +229,7 @@ jobs:
         find dl -size -1024c -exec rm -f {} \;
     
     - name: 开始通知
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       if: env.PUSH_PLUS_TOKEN && env.SERVERCHAN_SCKEY == 'PUSH' || env.TELEGRAM_BOT_TOKEN && env.SERVERCHAN_SCKEY == 'TELE'
       run: |
         if [[ "${SERVERCHAN_SCKEY}" == "TELE" ]]; then
@@ -226,6 +239,7 @@ jobs:
         fi
 
     - name: 编译固件
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       id: compile
       run: |
         cd openwrt
@@ -236,6 +250,7 @@ jobs:
         echo "date1=$(date +'%m.%d')" >> $GITHUB_ENV
         
     - name: 上传文件
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       uses: actions/upload-artifact@v2
       with:
@@ -243,6 +258,7 @@ jobs:
         path: openwrt/bin
     
     - name: 整理固件
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       id: organizer
       run: |
         if [ "${Modelfile}" == "openwrt_amlogic" ]; then
@@ -267,6 +283,7 @@ jobs:
         echo "::set-output name=status::success"   
 
     - name: 上传配置
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       uses: actions/upload-artifact@v2
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_CONFIG == 'true'
       with:
@@ -274,6 +291,7 @@ jobs:
         path: openwrt/bin/config
     
     - name: 上传固件
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       uses: actions/upload-artifact@v2
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
       with:
@@ -281,11 +299,13 @@ jobs:
         path: ${{ env.FIRMWARE }}
     
     - name: 发布信息
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
       run: |
         echo "### $(date +"%Y年%m月%d号-%H点%M分")" > update_log.txt
     
     - name: 发布固件
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       uses: ncipollo/release-action@v1
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
       with:
@@ -296,12 +316,14 @@ jobs:
         artifacts: "${{ env.FIRMWARE }}/*"
         
     - name: 在线更新Step 1
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
       run: |
        cd openwrt
        source "${PATH1}/upgrade.sh" && Diy_Part3
         
     - name: 在线更新Step 2
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
       uses: svenstaro/upload-release-action@v2
       with:
@@ -312,6 +334,7 @@ jobs:
         file_glob: true
         
     - name: 在线更新Step 3
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
       run: |
         mkdir -p Github_Tags
@@ -319,6 +342,7 @@ jobs:
         wget -q --no-cookie --no-check-certificate https://api.github.com/repos/${{github.repository}}/releases/tags/AutoUpdate -O Github_Tags
         
     - name: 在线更新Step 4
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
       uses: svenstaro/upload-release-action@v2
       with:
@@ -329,6 +353,7 @@ jobs:
         file_glob: true
         
     - name: 完成通知
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       if: steps.compile.outputs.status == 'success' && env.PUSH_PLUS_TOKEN && env.SERVERCHAN_SCKEY == 'PUSH' || steps.compile.outputs.status == 'success' && env.TELEGRAM_BOT_TOKEN && env.SERVERCHAN_SCKEY == 'TELE'
       run: |
         if [[ "${SERVERCHAN_SCKEY}" == "TELE" ]]; then
