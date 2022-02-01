@@ -175,8 +175,7 @@ jobs:
         ccache: 'true'
         prefix: ${{ github.workspace }}/openwrt
 
-    - name: SSH连接
-      if: steps.lastday.outputs.islastday == '1' && !cancelled() 
+    - name: SSH连接   
       uses: danshui-git/debugger-action@master
       if: env.SSH_ACTIONS == 'true' || (github.event.inputs.ssh == 'ssh' && github.event.inputs.ssh  != 'false')
       env:
@@ -227,7 +226,6 @@ jobs:
         find dl -size -1024c -exec rm -f {} \;
     
     - name: 开始通知
-      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       if: env.PUSH_PLUS_TOKEN && env.SERVERCHAN_SCKEY == 'PUSH' || env.TELEGRAM_BOT_TOKEN && env.SERVERCHAN_SCKEY == 'TELE'
       run: |
         if [[ "${SERVERCHAN_SCKEY}" == "TELE" ]]; then
