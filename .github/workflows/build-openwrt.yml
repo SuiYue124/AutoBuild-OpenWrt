@@ -15,7 +15,7 @@ on:
 
 #定时触发开始编译(把下面两个#去掉开启,时间设置请看定时编译说明)
   schedule:
-    - cron: 0 16 * * sun
+    - cron: 0 16 28,29,30,31 * *
 
 env:
   Github: https://github.com/${{github.repository}}
@@ -46,6 +46,17 @@ jobs:
     steps:
     - name: 准备结束
       uses: actions/checkout@v2
+      
+    - name: lastday
+      id: lastday
+      run:
+        #lastday=$(if [[ $(date -d "+1 day" +%m) != $(date +%m) ]];then  echo "Today is the last day of the month"; else  echo "Today is NOT the last day of the month"; fi)
+        echo "::set-output name=islastday::$(if [[ $(date -d "+1 day" +%m) != $(date +%m) ]];then  echo "1"; else  echo "2"; fi)"
+        
+    - name: printresult
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
+      run:
+        echo "执行"
 
     - name: 读取设置
       run: |
