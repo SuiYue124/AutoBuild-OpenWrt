@@ -47,16 +47,11 @@ jobs:
     - name: 准备结束
       uses: actions/checkout@v2
       
-    - name: lastday
+    - name: 月底执行
       id: lastday
       run:
         #lastday=$(if [[ $(date -d "+1 day" +%m) != $(date +%m) ]];then  echo "Today is the last day of the month"; else  echo "Today is NOT the last day of the month"; fi)
         echo "::set-output name=islastday::$(if [[ $(date -d "+1 day" +%m) != $(date +%m) ]];then  echo "1"; else  echo "2"; fi)"
-        
-    - name: printresult
-      if: steps.lastday.outputs.islastday == '1' && !cancelled()
-      run:
-        echo "执行"
 
     - name: 读取设置
       if: steps.lastday.outputs.islastday == '1' && !cancelled()
