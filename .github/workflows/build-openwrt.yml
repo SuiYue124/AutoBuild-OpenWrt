@@ -90,7 +90,7 @@ jobs:
     - name: 清理固件
       uses: dev-drprasad/delete-older-releases@master
       continue-on-error: true
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+      if: env.UPLOAD_RELEASE == 'true' && steps.lastday.outputs.islastday == '1' && !cancelled()
       with:
         keep_latest: 6
         delete_tags: true
@@ -143,7 +143,7 @@ jobs:
         echo "PATH1=${GITHUB_WORKSPACE}/openwrt/build/${{matrix.target}}" >> $GITHUB_ENV
  
     - name: 加载设置
-      if: steps.lastday.outputs.islastday == '1' && !cancelled()
+      if: steps.lastday.outputs.islastday == '1' && steps.lastday.outputs.islastday == '1' && !cancelled()
       run: |
         echo "Compile_Date=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
         cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
@@ -169,7 +169,7 @@ jobs:
         fi
     
     - name: 缓存加速
-      if: env.USE_CACHEWRTBUILD == 'true'
+      if: env.USE_CACHEWRTBUILD == 'true' && steps.lastday.outputs.islastday == '1' && !cancelled()
       uses: klever1988/cachewrtbuild@test
       with:
         ccache: 'true'
@@ -226,7 +226,7 @@ jobs:
         find dl -size -1024c -exec rm -f {} \;
     
     - name: 开始通知
-      if: env.PUSH_PLUS_TOKEN && env.SERVERCHAN_SCKEY == 'PUSH' || env.TELEGRAM_BOT_TOKEN && env.SERVERCHAN_SCKEY == 'TELE'
+      if: env.PUSH_PLUS_TOKEN && env.SERVERCHAN_SCKEY == 'PUSH' || env.TELEGRAM_BOT_TOKEN && env.SERVERCHAN_SCKEY == 'TELE' && steps.lastday.outputs.islastday == '1' && !cancelled()
       run: |
         if [[ "${SERVERCHAN_SCKEY}" == "TELE" ]]; then
           curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 主人：您正在使用【${{matrix.target}}】文件夹编译固件中(${{env.CangKu}}仓库的#${{env.Run_number}}号),请耐心等待...... 😋" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
