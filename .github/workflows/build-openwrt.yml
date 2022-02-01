@@ -253,6 +253,7 @@ jobs:
         path: openwrt/bin
     
     - name: 整理固件
+      if: steps.lastday.outputs.islastday == '1' && !cancelled()
       id: organizer
       run: |
         if [ "${Modelfile}" == "openwrt_amlogic" ]; then
