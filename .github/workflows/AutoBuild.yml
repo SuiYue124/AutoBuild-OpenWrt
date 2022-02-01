@@ -50,7 +50,6 @@ jobs:
     - name: 月底执行
       id: lastday
       run:
-        #lastday=$(if [[ $(date -d "+1 day" +%m) != $(date +%m) ]];then  echo "Today is the last day of the month"; else  echo "Today is NOT the last day of the month"; fi)
         echo "::set-output name=islastday::$(if [[ $(date -d "+1 day" +%m) != $(date +%m) ]];then  echo "1"; else  echo "2"; fi)"
 
     - name: 读取设置
