@@ -1,4 +1,4 @@
-|   序号    |     X86设备  |   X86设备编译状态及下载链接 |   插件配置   | 备注说明   |
+|	序号	|	设备	|	设备编译状态及下载链接	|	插件配置	|	备注说明	|
 | :-----------------: | :-------------: |:-----------------: | :-----------------: |  :-----------------: | 
 | 1 |   [![](https://img.shields.io/badge/GWen%40OpenWrt-X86__64(Lean)-lightgrey)](https://raw.githubusercontent.com/GWen124/AutoBuild-OpenWrt/master/.github/workflows/build-openwrt.yml)    | [![](https://github.com/GWen124/AutoBuild-OpenWrt/workflows/Build_x64(lean)/badge.svg)](https://github.com/GWen124/AutoBuild-OpenWrt/actions/workflows/build-openwrt.yml) |[![](https://img.shields.io/badge/编译-配置-orange.svg)](https://raw.githubusercontent.com/GWen124/AutoBuild-OpenWrt/master/build/Lede_source/.config) | ![](https://img.shields.io/github/last-commit/GWen124/AutoBuild-OpenWrt.svg)
 
