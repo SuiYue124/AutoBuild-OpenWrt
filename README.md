@@ -1,3 +1,8 @@
+|   序号    |     X86设备  |   X86设备编译状态及下载链接 |   插件配置   | 备注说明   |
+| :-----------------: | :-------------: |:-----------------: | :-----------------: |  :-----------------: | 
+| 1 |   [![](https://img.shields.io/badge/GWen124%40OpenWrt-X86__64(Lean)-lightgrey)](https://github.com/waynesg/AutoBuild-OpenWrt/blob/main/.github/workflows/build-openwrt.yml)    | [![](https://github.com/waynesg/AutoBuild-OpenWrt/workflows/Build_x64(lean)/badge.svg)](https://github.com/waynesg/AutoBuild-OpenWrt/actions/workflows/build-openwrt.yml) |[![](https://img.shields.io/badge/编译-配置-orange.svg)](https://github.com/waynesg/AutoBuild-OpenWrt/blob/main/build/Lede_source/.config) | ![](https://img.shields.io/github/last-commit/waynesg/AutoBuild-OpenWrt.svg)
+
+
 ## 使用一键更新固件脚本
 
 bash /bin/AutoUpdate.sh				[保留配置更新]
