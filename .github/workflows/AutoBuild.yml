@@ -78,7 +78,7 @@ jobs:
       uses: GitRML/delete-workflow-runs@main
       continue-on-error: true
       with:
-        retain_days: 100
+        retain_days: 365
         keep_minimum_runs: 1
 
     - name: 清理固件
