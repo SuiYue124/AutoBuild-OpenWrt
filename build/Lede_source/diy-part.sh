@@ -8,7 +8,7 @@
 # 选择argon为默认主题
 #sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 
-curl -fsSL https://raw.githubusercontent.com/GWen124/Script/master/OpenWrt/zzz-default-settings > ./package/lean/default-settings/files/zzz-default-settings
+#curl -fsSL https://raw.githubusercontent.com/GWen124/Script/master/OpenWrt/zzz-default-settings > ./package/lean/default-settings/files/zzz-default-settings
 curl -fsSL https://raw.githubusercontent.com/GWen124/Script/master/OpenWrt/index.htm > ./package/lean/autocore/files/x86/index.htm
 
 # 增加个性名字${Author}默认为你的github账号
