@@ -36,7 +36,7 @@ rm -rf ./feeds/luci/applications/luci-app-pushbot
 rm -rf ./feeds/packages/net/mosdns
 echo 
 TIME y "添加软件包"
-rm -rf package/waynesg && git clone https://github.com/waynesg/OpenWrt-Software package/waynesg
+rm -rf package/GWen124 && git clone https://github.com/GWen124/OpenWrt-Software package/GWen124
 echo
 TIME b "修改 系统文件..."
 # curl -fsSL https://raw.githubusercontent.com/GWen124/Script/master/OpenWrt/zzz-default-settings > ./package/lean/default-settings/files/zzz-default-settings
@@ -95,8 +95,8 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' packag
 echo
 TIME b "菜单 调整..."
 sed -i 's/\"services\"/\"control\"/g' feeds/luci/applications/luci-app-wol/luasrc/controller/wol.lua
-#sed -i 's/\"services\"/\"control\"/g' package/waynesg/luci-app-accesscontrol-plus/luasrc/controller/miaplus.lua
-sed -i 's/\"network\"/\"control\"/g'  package/waynesg/luci-app-oaf/luci-app-oaf/luasrc/controller/appfilter.lua
+#sed -i 's/\"services\"/\"control\"/g' package/GWen124/luci-app-accesscontrol-plus/luasrc/controller/miaplus.lua
+sed -i 's/\"network\"/\"control\"/g'  package/GWen124/luci-app-oaf/luci-app-oaf/luasrc/controller/appfilter.lua
 echo             
 TIME b "插件 重命名..."
 echo "重命名系统菜单"
@@ -118,8 +118,8 @@ sed -i 's/"Turbo ACC 网络加速"/"网络加速"/g' feeds/luci/applications/luc
 sed -i 's/"实时流量监测"/"流量"/g' `grep "实时流量监测" -rl ./`
 sed -i 's/"USB 打印服务器"/"打印服务"/g' `grep "USB 打印服务器" -rl ./`
 sed -i 's/"带宽监控"/"监控"/g' `grep "带宽监控" -rl ./`
-sed -i 's/"在线用户"/"在线设备"/g' package/waynesg/luci-app-onliner/luasrc/controller/onliner.lua
-#sed -i 's/"上网时间控制Plus"/"上网时间"/g' package/waynesg/luci-app-accesscontrol-plus/po/zh-cn/miaplus.po
+sed -i 's/"在线用户"/"在线设备"/g' package/GWen124/luci-app-onliner/luasrc/controller/onliner.lua
+#sed -i 's/"上网时间控制Plus"/"上网时间"/g' package/GWen124/luci-app-accesscontrol-plus/po/zh-cn/miaplus.po
 #sed -i 's/"autoipsetadder"/"自动设置IP"/g' `grep "autoipsetadder" -rl ./`
 echo "重命名服务菜单"
 #services menu
@@ -127,21 +127,21 @@ sed -i 's/"解锁网易云灰色歌曲"/"网易音乐"/g' feeds/luci/application
 #sed -i 's/天翼家庭云\/云盘提速/天翼云盘/g' feeds/luci/applications/luci-app-familycloud/luasrc/controller/familycloud.lua
 sed -i 's/"AdGuard Home"/"AdHome"/g' `grep "AdGuard Home" -rl ./`
 sed -i 's/"Frp 内网穿透"/"Frp客户端"/g' `grep "Frp 内网穿透" -rl ./`
-sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/waynesg/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
+sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/GWen124/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
 sed -i 's/msgstr "UPnP"/msgstr "UPnP服务"/g' feeds/luci/applications/luci-app-upnp/po/zh-cn/upnp.po
-sed -i 's/Hello World/VssrVPN/g'  package/waynesg/luci-app-vssr/luasrc/controller/vssr.lua
-sed -i 's/"Cloudflare速度测试"/"Cloudflare"/g' package/waynesg/luci-app-cloudflarespeedtest/po/zh-cn/cloudflarespeedtest.po
-sed -i 's/"TelegramBot"/"Telegram"/g'  package/waynesg/luci-app-telegrambot/luasrc/controller/telegrambot.lua
+sed -i 's/Hello World/VssrVPN/g'  package/GWen124/luci-app-vssr/luasrc/controller/vssr.lua
+sed -i 's/"Cloudflare速度测试"/"Cloudflare"/g' package/GWen124/luci-app-cloudflarespeedtest/po/zh-cn/cloudflarespeedtest.po
+sed -i 's/"TelegramBot"/"Telegram"/g'  package/GWen124/luci-app-telegrambot/luasrc/controller/telegrambot.lua
 #sed -i 's/"DDNS.to内网穿透"/"DDNSTO"/g' `grep "DDNS.to内网穿透" -rl ./`
-#sed -i 's/"网页快捷菜单"/"快捷菜单"/g'  package/waynesg/luci-app-shortcutmenu/po/zh-cn/shortcutmenu.po
-#sed -i 's/Adblock Plus+/Adb Plus+/g'  package/waynesg/luci-app-adblock-plus/luasrc/controller/adblock.lua
-#sed -i 's/CPU占用率限制/CPU调节/g' package/waynesg/luci-app-cpulimit/po/zh_Hans/cpulimit.po
+#sed -i 's/"网页快捷菜单"/"快捷菜单"/g'  package/GWen124/luci-app-shortcutmenu/po/zh-cn/shortcutmenu.po
+#sed -i 's/Adblock Plus+/Adb Plus+/g'  package/GWen124/luci-app-adblock-plus/luasrc/controller/adblock.lua
+#sed -i 's/CPU占用率限制/CPU调节/g' package/GWen124/luci-app-cpulimit/po/zh_Hans/cpulimit.po
 #sed -i 's/"KMS 服务器"/"KMS激活"/g' `grep "KMS 服务器" -rl ./`
-#sed -i 's/"WebGuide"/"网页导航"/g' package/waynesg/luci-app-webguide/luasrc/controller/webguide.lua
-#sed -i 's/"iKoolProxy 滤广告"/"广告过滤"/g' package/waynesg/luci-app-ikoolproxy/luasrc/controller/koolproxy.lua
-#sed -i 's/"Nezha Agent"/"哪吒面板"/g'  package/waynesg/luci-app-nezha/luasrc/controller/nezha-agent.lua
-#sed -i 's/"WebGuide"/"网页导航"/g'  package/waynesg/luci-app-webguide/luasrc/controller/webguide.lua
-#sed -i 's/"Webd 网盘"/"WebDisk"/g'  package/waynesg/luci-app-webd/po/zh-cn/webd.po
+#sed -i 's/"WebGuide"/"网页导航"/g' package/GWen124/luci-app-webguide/luasrc/controller/webguide.lua
+#sed -i 's/"iKoolProxy 滤广告"/"广告过滤"/g' package/GWen124/luci-app-ikoolproxy/luasrc/controller/koolproxy.lua
+#sed -i 's/"Nezha Agent"/"哪吒面板"/g'  package/GWen124/luci-app-nezha/luasrc/controller/nezha-agent.lua
+#sed -i 's/"WebGuide"/"网页导航"/g'  package/GWen124/luci-app-webguide/luasrc/controller/webguide.lua
+#sed -i 's/"Webd 网盘"/"WebDisk"/g'  package/GWen124/luci-app-webd/po/zh-cn/webd.po
 #sed -i 's/"Go 阿里云盘 WebDAV"/"阿里云盘"/g' `grep "Go 阿里云盘 WebDAV" -rl ./`
 #sed -i 's/"阿里云盘 WebDAV"/"阿里云盘"/g' `grep "阿里云盘 WebDAV" -rl ./`
 #sed -i 's/京东签到服务/京东签到/g' feeds/luci/applications/luci-app-jd-dailybonus/luasrc/controller/jd-dailybonus.lua
@@ -156,14 +156,14 @@ sed -i 's/"主机名"/"主机名称"/g' `grep "主机名" -rl ./`
 sed -i 's/"接口"/"网络接口"/g' `grep "接口" -rl ./`
 echo "重命名存储菜单"
 #nas
-# sed -i 's/"文件浏览器"/"文件管理"/g' package/waynesg/luci-app-filebrowser/po/zh-cn/filebrowser.po
+# sed -i 's/"文件浏览器"/"文件管理"/g' package/GWen124/luci-app-filebrowser/po/zh-cn/filebrowser.po
 sed -i 's/"FTP 服务器"/"FTP 服务"/g' feeds/luci/applications/luci-app-vsftpd/po/zh-cn/vsftpd.po
-sed -i 's/"Alist 文件列表"/"Alist列表"/g' package/waynesg/luci-app-alist/luci-app-alist/po/zh-cn/alist.po
+sed -i 's/"Alist 文件列表"/"Alist列表"/g' package/GWen124/luci-app-alist/luci-app-alist/po/zh-cn/alist.po
 #vpn
 sed -i 's/"ZeroTier"/"ZeroTier虚拟网络"/g' feeds/luci/applications/luci-app-zerotier/luasrc/controller/zerotier.lua
 TIME b "重命名 完成"
 echo
 TIME b "自定义文件修复权限"
-chmod -R 755 package/waynesg
+chmod -R 755 package/GWen124
 echo
 TIME g "配置更新完成"
