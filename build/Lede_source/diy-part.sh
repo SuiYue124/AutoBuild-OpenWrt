@@ -33,10 +33,11 @@ rm -rf ./feeds/luci/applications/luci-app-netdata
 rm -rf ./feeds/luci/applications/luci-app-serverchan
 rm -rf ./feeds/luci/applications/luci-app-pushbot
 # rm -rf ./feeds/luci/applications/luci-app-unblockmusic
-rm -rf ./feeds/packages/net/mosdns
+
 echo 
 TIME y "添加软件包"
 rm -rf package/GWen124 && git clone https://github.com/GWen124/OpenWrt-Software package/GWen124
+
 echo
 TIME b "修改 系统文件..."
 # curl -fsSL https://raw.githubusercontent.com/GWen124/Script/master/OpenWrt/zzz-default-settings > ./package/lean/default-settings/files/zzz-default-settings
@@ -93,7 +94,9 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' packag
 #sed -i 's/PKG_HASH.*/PKG_HASH:=skip/' feeds/packages/utils/containerd/Makefile
 
 echo
-sed -i 's/"PKG_BUILD_DEPENDS:=golang\/host homebox\/host"/"PKG_BUILD_DEPENDS:=golang\/host homebox\/host upx\/host"/g' package/GWen124/luci-app-netspeedtest/homebox/Makefile
+TIME y "添加upx"
+sed -i 's/"PKG_BUILD_DEPENDS:=golang\/host homebox\/host"/"PKG_BUILD_DEPENDS:=golang\/host homebox\/host upx\/host"/g' package/waynesg/luci-app-netspeedtest/homebox/Makefile
+sed -i 's/"PKG_BUILD_DEPENDS:=golang\/host"/"PKG_BUILD_DEPENDS:=golang\/host upx\/host"/g' feeds/packages/net/mosdns/Makefile
 
 echo
 TIME b "菜单 调整..."
