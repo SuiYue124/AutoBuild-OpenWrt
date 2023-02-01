@@ -143,7 +143,7 @@ jobs:
         
     - name: 加载缓存
       if: env.USE_CACHEWRTBUILD == 'true'
-      uses: klever1988/cachewrtbuild@test
+      uses: klever1988/cachewrtbuild@main
       with:
         ccache: 'true'
         prefix: ${{ github.workspace }}/openwrt
@@ -176,7 +176,7 @@ jobs:
        
     - name: 编译信息
       run: |
-        wget -qO- --no-check-certificate https://raw.githubusercontent.com/GWen124/Script/master/OpenWrt/serverbench.sh | bash
+        wget -qO- --no-check-certificate https://raw.githubusercontent.com/waynesg/scripts/main/serverbench.sh | bash
         cd openwrt
         source "${PATH1}/common.sh" && Diy_chuli > /dev/null 2>&1
         if [ "${REGULAR_UPDATE}" == "true" ]; then
@@ -228,14 +228,14 @@ jobs:
         
     - name: 上传配置
       if: env.UPLOAD_CONFIG == 'true'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@main
       with:
         name: .config_${{ env.CODE }}_${{ env.TARGET_PROFILE }}_${{ env.Compile_Date }}
         path: config.txt
         
     - name: 上传文件
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@main
       with:
         name: filename+ipk_${{ env.CODE }}_${{ env.TARGET_PROFILE }}_${{ env.Compile_Date }}
         path: openwrt/bin

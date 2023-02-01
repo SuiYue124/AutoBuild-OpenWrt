@@ -32,12 +32,11 @@ rm -rf ./feeds/packages/admin/netdata
 rm -rf ./feeds/luci/applications/luci-app-netdata
 rm -rf ./feeds/luci/applications/luci-app-serverchan
 rm -rf ./feeds/luci/applications/luci-app-pushbot
-# rm -rf ./feeds/luci/applications/luci-app-unblockmusic
+rm -rf ./feeds/luci/applications/luci-app-unblockmusic
 
 echo 
 TIME y "添加软件包"
 rm -rf package/GWen124 && git clone https://github.com/GWen124/OpenWrt-Software package/GWen124
-
 echo
 TIME b "修改 系统文件..."
 # curl -fsSL https://raw.githubusercontent.com/GWen124/Script/master/OpenWrt/zzz-default-settings > ./package/lean/default-settings/files/zzz-default-settings
@@ -95,7 +94,7 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' packag
 
 echo
 TIME y "添加upx"
-sed -i 's/"PKG_BUILD_DEPENDS:=golang\/host homebox\/host"/"PKG_BUILD_DEPENDS:=golang\/host homebox\/host upx\/host"/g' package/waynesg/luci-app-netspeedtest/homebox/Makefile
+sed -i 's/"PKG_BUILD_DEPENDS:=golang\/host homebox\/host"/"PKG_BUILD_DEPENDS:=golang\/host homebox\/host upx\/host"/g' package/GWen124/luci-app-netspeedtest/homebox/Makefile
 sed -i 's/"PKG_BUILD_DEPENDS:=golang\/host"/"PKG_BUILD_DEPENDS:=golang\/host upx\/host"/g' feeds/packages/net/mosdns/Makefile
 
 echo
@@ -129,7 +128,8 @@ sed -i 's/"在线用户"/"在线设备"/g' package/GWen124/luci-app-onliner/luas
 #sed -i 's/"autoipsetadder"/"自动设置IP"/g' `grep "autoipsetadder" -rl ./`
 echo "重命名服务菜单"
 #services menu
-sed -i 's/"解锁网易云灰色歌曲"/"网易音乐"/g' feeds/luci/applications/luci-app-unblockmusic/po/zh-cn/unblockmusic.po
+#sed -i 's/"解锁网易云灰色歌曲"/"网易音乐"/g' feeds/luci/applications/luci-app-unblockmusic/po/zh-cn/unblockmusic.po
+sed -i 's/"解除网易云音乐播放限制"/"网易音乐"/g' package/GWen124/luci-app-unblockneteasemusic/luasrc/controller/unblockneteasemusic.lua
 #sed -i 's/天翼家庭云\/云盘提速/天翼云盘/g' feeds/luci/applications/luci-app-familycloud/luasrc/controller/familycloud.lua
 sed -i 's/"AdGuard Home"/"AdHome"/g' `grep "AdGuard Home" -rl ./`
 sed -i 's/"Frp 内网穿透"/"Frp客户端"/g' `grep "Frp 内网穿透" -rl ./`
