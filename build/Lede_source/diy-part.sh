@@ -33,6 +33,17 @@ rm -rf ./feeds/luci/applications/luci-app-netdata
 rm -rf ./feeds/luci/applications/luci-app-serverchan
 rm -rf ./feeds/luci/applications/luci-app-pushbot
 rm -rf ./feeds/luci/applications/luci-app-unblockmusic
+rm -rf ./feeds/luci/applications/luci-app-mosdns
+rm -rf ./feeds/luci/applications/luci-app-omcproxy
+rm -rf ./feeds/packages/net/mosdns
+rm -rf ./feeds/packages/net/adguardhome
+rm -rf ./feeds/packages/net/go-aliyundrive-webdav
+rm -rf ./feeds/packages/net/gowebdav
+rm -rf ./feeds/packages/net/msd_lite
+rm -rf ./feeds/packages/net/pdnsd-alt
+rm -rf ./feeds/packages/net/v2ray-geodata
+rm -rf ./feeds/luci/libs/luci-lib-ipkg
+rm -rf ./feeds/luci/themes/luci-app-argon-config
 
 echo 
 TIME y "添加软件包"
@@ -65,7 +76,7 @@ sed -i "s/OpenWrt /AutoBuild Firmware Compiled By @GWen124 build $(TZ=UTC-8 date
 echo
 TIME y "更换golang版本"
 rm -rf feeds/packages/lang/golang
-svn export https://github.com/sbwml/packages_lang_golang/branches/19.x feeds/packages/lang/golang
+svn export https://github.com/sbwml/packages_lang_golang/branches/20.x feeds/packages/lang/golang
 
 echo 
 TIME y "调整网络诊断地址到www.baidu.com"
